@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Image Resizer | Cretiv</title>
+<link rel="icon" type="image/png" href="assets/icon-512.png">
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font: 17px/1.65 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 44rem; margin: 0 auto; padding: 2.5rem 1.25rem 5rem;
+    color: #1a1b21; background: #fbfbff;
+  }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 .25rem; }
+  h2 { font-size: 1.2rem; margin: 2.25rem 0 .6rem; }
+  .sub { color: #5b5c6b; margin: 0 0 2rem; }
+  .callout {
+    background: #eceeff; border-left: 4px solid #4c5bd4;
+    padding: 1rem 1.15rem; border-radius: 6px; margin: 1.5rem 0;
+  }
+  ul { padding-left: 1.25rem; }
+  li { margin: .35rem 0; }
+  code { background: #e9e9f2; padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .95rem; }
+  th, td { text-align: left; padding: .55rem .7rem; border-bottom: 1px solid #dcdce8; vertical-align: top; }
+  th { font-weight: 600; }
+  footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid #dcdce8;
+           color: #5b5c6b; font-size: .92rem; }
+  a { color: #3a45b5; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #e3e1e9; background: #121318; }
+    .sub, footer { color: #a6a4b4; }
+    .callout { background: #1d1f33; border-left-color: #bec2ff; }
+    code { background: #26283a; }
+    th, td { border-bottom-color: #2c2e3e; }
+    footer { border-top-color: #2c2e3e; }
+    a { color: #bec2ff; }
+  }
+</style>
+</head>
+<body>
+
+<p style="margin-bottom:.75rem"><a href="/" style="font-size:.9rem">&larr; Back to cretiv.in</a></p>
+<h1>Privacy Policy</h1>
+<p class="sub"><strong>Image Resizer</strong> for Android · Last updated 9 August 2026</p>
+
+<div class="callout">
+  <strong>Your photos never leave your device.</strong> All resizing and compression happens
+  locally, and no image, filename, or file content is ever uploaded. The app has no accounts,
+  no advertising, and no tracking for marketing purposes. It does send <strong>anonymous crash
+  and performance diagnostics</strong> to Google Firebase so that bugs can be found and fixed —
+  exactly what that covers is set out below.
+</div>
+
+<h2>What we never collect</h2>
+<ul>
+  <li><strong>Your photos and their contents.</strong> Images are decoded, resized and re-encoded
+      entirely on your device. No image data, thumbnail, filename or folder path is transmitted.</li>
+  <li><strong>Personal information.</strong> There is no sign-in, no account, no profile, no email
+      address, no contacts and no advertising identifier.</li>
+  <li><strong>Your location.</strong> The app requests no location permission and reads no GPS data.</li>
+  <li><strong>Anything sold or shared for advertising.</strong> We do not sell data, and we do not
+      share it with advertisers, data brokers, or any third party other than the diagnostics
+      provider described below.</li>
+</ul>
+
+<h2>What is collected: diagnostics</h2>
+<p>Image Resizer includes two Google Firebase components — <strong>Crashlytics</strong> (crash
+reporting) and <strong>Performance Monitoring</strong>. They exist so that a crash or a slowdown
+on a device we do not own can still be diagnosed and fixed. They run automatically while the app
+is in use.</p>
+
+<table>
+  <tr><th>Collected</th><th>What it is</th><th>Why</th></tr>
+  <tr>
+    <td>Crash reports</td>
+    <td>The stack trace of the failure, the app's state at the moment it crashed, and the app version.</td>
+    <td>To identify and fix crashes.</td>
+  </tr>
+  <tr>
+    <td>Performance data</td>
+    <td>App start-up time, screen rendering times, and the app's CPU and memory use.</td>
+    <td>To find slow or memory-hungry code paths.</td>
+  </tr>
+  <tr>
+    <td>Device information</td>
+    <td>Device model, manufacturer, Android version, language, available memory and storage,
+        orientation, and whether the device is rooted.</td>
+    <td>To tell whether a problem affects one kind of device or all of them.</td>
+  </tr>
+  <tr>
+    <td>An installation identifier</td>
+    <td>A random ID generated on your device when the app is installed. It is not your Android
+        advertising ID, not your account, and is not linked to you. It is reset if you uninstall
+        and reinstall the app, or clear its data.</td>
+    <td>To group several reports coming from the same installation.</td>
+  </tr>
+  <tr>
+    <td>IP address</td>
+    <td>Seen by Google's servers when a report is sent, and used to derive a coarse country/region.
+        It is not used to locate you and is not exposed to us as a precise location.</td>
+    <td>Unavoidable side effect of any network request; used for regional grouping.</td>
+  </tr>
+</table>
+
+<p><strong>None of this contains your images or anything you typed.</strong> The app attaches no
+custom logs, no user IDs and no file information to these reports.</p>
+
+<h2>Permissions the app requests</h2>
+<p>Earlier versions of Image Resizer declared no Android permissions at all. Adding the diagnostics
+components above changed that, and it is only honest to be specific about it. The app now declares:</p>
+<ul>
+  <li><code>INTERNET</code> — used solely to send the diagnostic reports described above.</li>
+  <li><code>ACCESS_NETWORK_STATE</code> — lets the diagnostics library check whether a connection
+      exists before trying to send.</li>
+  <li><code>WAKE_LOCK</code> — used by the diagnostics library to finish sending a pending report.</li>
+</ul>
+<p>You can verify this list yourself at any time: Settings → Apps → Image Resizer → Permissions.
+The app still requests <strong>no</strong> storage, camera, location, contacts, or microphone
+permission, and none of these three can reach your photos.</p>
+
+<h2>How your photos are handled</h2>
+<ul>
+  <li>You choose images through the Android photo picker, which grants the app access
+      to <em>only the images you select</em> — never your whole photo library.</li>
+  <li>Resizing and compression happen locally on your device.</li>
+  <li>Results you save go to your device's Photos (the
+      <code>Pictures/ImageResizer</code> album) or to a folder you pick yourself.</li>
+  <li>Nothing is copied to a server, and nothing is retained by the developer.</li>
+  <li>When you tap Share, the resized file is handed to whichever app you choose. What
+      happens after that is governed by that app's own privacy policy, not this one.</li>
+  <li>A temporary copy of a shared file may be written to the app's private cache so
+      the receiving app can read it. It stays on your device and is removed by Android
+      when the cache is cleared or the app is uninstalled.</li>
+</ul>
+
+<h2>Metadata (EXIF)</h2>
+<p>Resized images are re-encoded from scratch. Camera metadata such as GPS location,
+device model, and timestamps present in the original is <strong>not carried over</strong>
+into the output file. Image orientation is applied to the pixels so the picture stays
+upright. This is a privacy benefit, but note it also means the original capture date and
+location are not preserved in the resized copy.</p>
+
+<h2>Who processes the diagnostics, and for how long</h2>
+<p>Crash and performance reports are processed by <strong>Google LLC</strong> through Firebase,
+acting as our service provider. They are transmitted over an encrypted HTTPS connection and are
+stored on Google's infrastructure. Crash reports are retained for approximately 90 days;
+performance data is retained for a limited period and then kept only in aggregate. Google's
+handling of this data is described in the
+<a href="https://firebase.google.com/support/privacy">Firebase Privacy and Security</a>
+documentation and the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+<p>We use these reports only to fix defects and improve the app. We do not use them for
+advertising, profiling, or any automated decision-making, and we do not combine them with data
+from any other source.</p>
+
+<h2>Your choices</h2>
+<ul>
+  <li>Uninstalling the app stops all further collection immediately.</li>
+  <li>Clearing the app's data resets the installation identifier described above, which
+      disconnects future reports from earlier ones.</li>
+  <li>You may ask us to delete diagnostic data associated with your installation by writing to the
+      address below. Because the reports carry no account or personal identifier, please include
+      the installation identifier or enough detail (device model, approximate date, app version)
+      for us to locate the records.</li>
+</ul>
+
+<h2>Children</h2>
+<p>Image Resizer is not directed at children and is not designed for use by children under 13.
+It collects no personal information from anyone, including children.</p>
+
+<h2>Changes to this policy</h2>
+<p>If the app changes in a way that affects this policy, this page will be updated and the
+&ldquo;Last updated&rdquo; date above will change. This version reflects the addition of crash
+reporting and performance monitoring; versions of the app up to 1.0.1 contained neither and made
+no network connections of any kind.</p>
+
+<h2>Contact</h2>
+<p>Questions about this policy or the app:
+   <a href="mailto:contact@cretiv.in">contact@cretiv.in</a></p>
+
+<footer>
+  Image Resizer is a free app with no ads and no in-app purchases.
+</footer>
+
+</body>
+</html>

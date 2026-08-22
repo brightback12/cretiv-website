@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cretiv — Innovative Mobile App Solutions</title>
+  <meta name="description" content="Cretiv builds privacy-first, user-friendly mobile apps. Discover Image Resizer — compress and resize photos entirely on your device, with no ads, no accounts and no tracking.">
+  <meta name="theme-color" content="#0a0a1a">
+  <link rel="icon" type="image/png" href="assets/icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-primary: #0a0a1a;
+      --bg-card: #12122a;
+      --bg-card-hover: #1a1a3a;
+      --text-primary: #eeeef6;
+      --text-secondary: #9a9ab8;
+      --accent: #7c5cfc;
+      --accent-glow: #9b7dff;
+      --accent-soft: rgba(124, 92, 252, 0.12);
+      --gradient-1: linear-gradient(135deg, #7c5cfc 0%, #3aa0ff 50%, #00d4aa 100%);
+      --gradient-2: linear-gradient(135deg, #7c5cfc 0%, #e040fb 100%);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow-card: 0 4px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.04);
+      --font: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.65;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    /* ── Ambient Background ───────────────────────── */
+    .ambient {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      overflow: hidden;
+    }
+    .ambient::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px;
+      top: -200px; right: -150px;
+      background: radial-gradient(circle, rgba(124,92,252,0.15) 0%, transparent 70%);
+      animation: float 18s ease-in-out infinite;
+    }
+    .ambient::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      bottom: -100px; left: -100px;
+      background: radial-gradient(circle, rgba(58,160,255,0.1) 0%, transparent 70%);
+      animation: float 22s ease-in-out infinite reverse;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(40px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.97); }
+    }
+
+    /* ── Navigation ───────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1rem 2rem;
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      background: rgba(10, 10, 26, 0.7);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.3s;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.5rem; font-weight: 800;
+      background: var(--gradient-1);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text-secondary); text-decoration: none;
+      font-weight: 500; font-size: 0.9rem;
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--text-primary); }
+
+    /* ── Section Base ─────────────────────────────── */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; font-size: 0.75rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--accent); margin-bottom: 1rem;
+      padding: 0.35rem 1rem; border-radius: 100px;
+      background: var(--accent-soft);
+    }
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem); font-weight: 800;
+      line-height: 1.15; margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+    .section-desc {
+      font-size: 1.1rem; color: var(--text-secondary);
+      max-width: 560px; line-height: 1.7;
+    }
+
+    /* ── Hero ──────────────────────────────────────── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 5rem; text-align: center;
+    }
+    .hero .container {
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 7vw, 4.5rem); font-weight: 800;
+      line-height: 1.08; letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .gradient-text {
+      background: var(--gradient-1);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-secondary); max-width: 540px;
+      margin-bottom: 2.5rem; line-height: 1.7;
+    }
+    .hero-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+    /* ── Buttons ───────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.85rem 2rem; border-radius: 100px;
+      font-family: var(--font); font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-primary {
+      background: var(--gradient-1); color: #fff;
+      box-shadow: 0 4px 20px rgba(124, 92, 252, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(124, 92, 252, 0.45);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.06); color: var(--text-primary);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-2px);
+    }
+    /* Non-linking placeholder used until the Play listing is public. */
+    .btn-soon {
+      background: rgba(255,255,255,0.06); color: var(--text-secondary);
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: default;
+    }
+
+    /* ── App Showcase ─────────────────────────────── */
+    .showcase { background: linear-gradient(180deg, var(--bg-primary) 0%, #0e0e24 100%); }
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      margin-top: 3rem;
+    }
+    .app-icon-block { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 2rem; }
+    .app-icon {
+      width: 72px; height: 72px; border-radius: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .app-name { font-size: 1.5rem; font-weight: 700; }
+    .app-tagline { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.15rem; }
+
+    .feature-list { list-style: none; margin-top: 1.5rem; }
+    .feature-list li {
+      padding: 0.7rem 0; display: flex; align-items: flex-start; gap: 0.75rem;
+      font-size: 0.95rem; color: var(--text-secondary);
+    }
+    .feature-list .icon {
+      flex-shrink: 0; width: 24px; height: 24px;
+      border-radius: 6px; background: var(--accent-soft);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent); font-size: 0.8rem;
+    }
+    .feature-list strong { color: var(--text-primary); }
+
+    .screenshots-carousel {
+      display: flex; gap: 1rem; overflow-x: auto;
+      padding: 1rem 0.5rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .screenshots-carousel::-webkit-scrollbar { display: none; }
+    .screenshots-carousel img {
+      height: 480px; border-radius: var(--radius);
+      scroll-snap-align: center; flex-shrink: 0;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.3s;
+    }
+    .screenshots-carousel img:hover { transform: scale(1.03); }
+
+    /* ── Values / Why Section ─────────────────────── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .value-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius); padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    .value-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .value-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--accent-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.25rem;
+    }
+    .value-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .value-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.65; }
+
+    /* ── Contact ───────────────────────────────────── */
+    .contact { text-align: center; }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: var(--radius); padding: 3rem;
+      max-width: 560px; margin: 2rem auto 0;
+    }
+    .contact-card a {
+      color: var(--accent-glow); text-decoration: none;
+      font-weight: 600; font-size: 1.1rem;
+    }
+    .contact-card a:hover { text-decoration: underline; }
+    .contact-card p { color: var(--text-secondary); margin-top: 0.75rem; font-size: 0.92rem; }
+
+    /* ── Footer ────────────────────────────────────── */
+    footer {
+      padding: 2.5rem 2rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-weight: 700; color: var(--text-secondary); font-size: 0.95rem; }
+    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-links a {
+      color: var(--text-secondary); text-decoration: none; font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text-primary); }
+
+    /* ── Animations ────────────────────────────────── */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ────────────────────────────────── */
+    @media (max-width: 768px) {
+      section { padding: 4rem 1.25rem; }
+      .showcase-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .nav-links { display: none; }
+      .screenshots-carousel img { height: 360px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<!-- ── Navigation ──────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <div class="logo">cretiv</div>
+    <ul class="nav-links">
+      <li><a href="#apps">Apps</a></li>
+      <li><a href="#why">Why Cretiv</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="privacy-policy.html">Privacy</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────── -->
+<section class="hero">
+  <div class="container">
+    <span class="section-label">Innovative Mobile App Solutions</span>
+    <h1 class="hero-title">
+      Apps that respect<br>
+      <span class="gradient-text">your privacy</span>
+    </h1>
+    <p class="hero-subtitle">
+      We build user-friendly mobile apps with a simple promise — no ads, no tracking,
+      no accounts. Your files stay on your device.
+    </p>
+    <div class="hero-cta-group">
+      <a href="#apps" class="btn btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        Explore Our Apps
+      </a>
+      <a href="#contact" class="btn btn-secondary">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── App Showcase ─────────────────────────────── -->
+<section class="showcase" id="apps">
+  <div class="container">
+    <span class="section-label">Featured App</span>
+    <h2 class="section-title">Image Resizer</h2>
+    <p class="section-desc">
+      Compress and resize photos on your own device. No ads, no accounts, no tracking — ever.
+    </p>
+
+    <div class="showcase-grid fade-up">
+      <div>
+        <div class="app-icon-block">
+          <img src="assets/icon-512.png" alt="Image Resizer icon" class="app-icon">
+          <div>
+            <div class="app-name">Image Resizer</div>
+            <div class="app-tagline">Free · No ads · No in-app purchases</div>
+          </div>
+        </div>
+
+        <ul class="feature-list">
+          <li>
+            <span class="icon">⚡</span>
+            <span><strong>Live preview</strong> — drag quality and resolution sliders, see file size update instantly</span>
+          </li>
+          <li>
+            <span class="icon">🎯</span>
+            <span><strong>Target a size</strong> — need under 500 KB? Type the limit and let the app figure out the rest</span>
+          </li>
+          <li>
+            <span class="icon">📦</span>
+            <span><strong>Batch processing</strong> — select as many photos as you like and resize them all at once</span>
+          </li>
+          <li>
+            <span class="icon">🔒</span>
+            <span><strong>Your photos stay put</strong> — every resize happens on your device. No storage, camera or location permission.</span>
+          </li>
+          <li>
+            <span class="icon">🖼️</span>
+            <span><strong>JPEG, WebP, PNG</strong> — switch output format with one tap</span>
+          </li>
+          <li>
+            <span class="icon">🪶</span>
+            <span><strong>~3 MB app size</strong> — starts instantly, works offline</span>
+          </li>
+        </ul>
+
+        <div style="margin-top: 2rem;">
+          <!--
+            Placeholder until the Play listing is public. Every Play URL has to carry the
+            application id, so there is no way to link to the store without showing it.
+            While the app is closed-testing-only that link 404s for every visitor anyway.
+            To restore at launch, swap this span back to:
+              <a href="https://play.google.com/store/apps/details?id=APPLICATION_ID"
+                 class="btn btn-primary" target="_blank" rel="noopener"> … </a>
+          -->
+          <span class="btn btn-soon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Coming soon to Google Play
+          </span>
+        </div>
+      </div>
+
+      <div class="screenshots-carousel">
+        <img src="assets/ss-01.png" alt="Image Resizer — empty state" loading="lazy">
+        <img src="assets/ss-02.png" alt="Image Resizer — resize result" loading="lazy">
+        <img src="assets/ss-03.png" alt="Image Resizer — quality controls" loading="lazy">
+        <img src="assets/ss-04.png" alt="Image Resizer — target size" loading="lazy">
+        <img src="assets/ss-05.png" alt="Image Resizer — batch selection" loading="lazy">
+        <img src="assets/ss-06.png" alt="Image Resizer — batch done" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Why Cretiv ───────────────────────────────── -->
+<section id="why">
+  <div class="container">
+    <span class="section-label">Our Philosophy</span>
+    <h2 class="section-title">Why Cretiv?</h2>
+    <p class="section-desc">
+      We believe the best apps are the ones that do their job and get out of the way.
+    </p>
+
+    <div class="values-grid">
+      <div class="value-card fade-up">
+        <div class="value-icon">🛡️</div>
+        <h3>Privacy by Design</h3>
+        <p>No ad SDKs, no marketing trackers, no accounts. The only thing we receive is anonymous crash and performance diagnostics — never your files.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">🚫</div>
+        <h3>Zero Ads, Forever</h3>
+        <p>Our apps are free with no ads and no in-app purchases. We build tools we actually want to use ourselves.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">📴</div>
+        <h3>Works Offline</h3>
+        <p>Every feature runs with the network off. Nothing has to be uploaded for the app to do its job, so your photos never travel anywhere.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">⚡</div>
+        <h3>Lightweight & Fast</h3>
+        <p>Small app sizes, instant startup, and efficient memory usage. Your phone has enough bloat already.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">🔍</div>
+        <h3>Verifiable Claims</h3>
+        <p>We spell out exactly what is collected and why in the <a href="privacy-policy.html">privacy policy</a> — including the parts most apps leave vague.</p>
+      </div>
+      <div class="value-card fade-up">
+        <div class="value-icon">💜</div>
+        <h3>User-First</h3>
+        <p>No accounts, no sign-ups, no onboarding walls. Open the app, get your work done.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ──────────────────────────────────── -->
+<section class="contact" id="contact">
+  <div class="container">
+    <span class="section-label">Get in Touch</span>
+    <h2 class="section-title">Let's talk</h2>
+    <div class="contact-card fade-up">
+      <a href="mailto:contact@cretiv.in">contact@cretiv.in</a>
+      <p>Questions, feedback, or just want to say hi? Drop us a line.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">© 2026 Cretiv</div>
+    <ul class="footer-links">
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+      <li><a href="mailto:contact@cretiv.in">Contact</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
